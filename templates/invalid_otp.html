@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invalid OTP</title>
+    <!-- Redirect to /verify after 4 seconds -->
+    <meta http-equiv="refresh" content="4;url={{ url_for('verify_otp') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Invalid OTP</h2>
+    <p>Please try again. Redirecting to verification page...</p>
+</body>
+</html>

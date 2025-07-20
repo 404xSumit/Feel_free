@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mental Health Poll</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    /* Include only relevant parts from your advanced UI CSS */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .poll-container {
+      max-width: 600px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #ff3366, #ff8547);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    label {
+      display: block;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    label:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      border: none;
+      background: linear-gradient(45deg, #ff3366, #ff8547);
+      color: white;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .conclusion {
+      background-color: rgba(255, 255, 255, 0.08);
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 12px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="poll-container">
+    <h2>Mental Health Self-Assessment</h2>
+
+    {% if done %}
+      <p><strong>Conclusion:</strong></p>
+      <div class="conclusion">{{ conclusion }}</div>
+    {% else %}
+      <p><strong>Question {{ q_num }} of {{ total }}:</strong></p>
+      <form method="POST">
+        <p>{{ question }}</p>
+        <label><input type="radio" name="choice" value="Strongly Agree" required> Strongly Agree</label>
+        <label><input type="radio" name="choice" value="Agree"> Agree</label>
+        <label><input type="radio" name="choice" value="Neutral"> Neutral</label>
+        <label><input type="radio" name="choice" value="Disagree"> Disagree</label>
+        <label><input type="radio" name="choice" value="Strongly Disagree"> Strongly Disagree</label>
+        <button type="submit">Next</button>
+      </form>
+    {% endif %}
+  </div>
+</body>
+</html>

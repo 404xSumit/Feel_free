@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FeelFree - Mental Health Chatbot</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffebee;
+            /* Light red/pink background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #0d47a1;
+            /* Dark blue text */
+        }
+
+        .chat-container {
+            width: 90%;
+            max-width: 600px;
+            background-color: rgba(255, 235, 238, 0.9);
+            /* Slightly transparent light pink */
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+            border: 1px solid #ef9a9a;
+            /* Light red border */
+        }
+
+        .chat-header {
+            background-color: #e57373;
+            /* Medium red */
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: rgba(255, 235, 238, 0.7);
+            /* Very light pink */
+        }
+
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            line-height: 1.4;
+        }
+
+        .user-message {
+            background-color: rgba(224, 224, 224, 0.7);
+            /* Light gray transparent */
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+            color: #b71c1c;
+            /* Dark red text for user */
+        }
+
+        .bot-message {
+            background-color: rgba(255, 255, 255, 0.8);
+            /* White with transparency */
+            margin-right: auto;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            color: #0d47a1;
+            /* Dark blue text for bot */
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            background-color: rgba(255, 235, 238, 0.9);
+            border-top: 1px solid #ef9a9a;
+        }
+
+        #user_input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 25px;
+            outline: none;
+            font-size: 1rem;
+            background-color: rgba(224, 224, 224, 0.7);
+            /* Gray transparent */
+            color: #0d47a1;
+            /* Dark blue text */
+        }
+
+        #user_input::placeholder {
+            color: #b71c1c;
+            /* Red placeholder */
+            opacity: 0.7;
+        }
+
+        #send_button {
+            background-color: #e57373;
+            /* Medium red */
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #send_button:hover {
+            background-color: #ef5350;
+            /* Brighter red on hover */
+        }
+
+        .disclaimer {
+            font-size: 0.8rem;
+            color: #b71c1c;
+            /* Dark red */
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(255, 235, 238, 0.7);
+            border-top: 1px solid #ef9a9a;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>FeelFree - Mental Health Support</h2>
+        </div>
+        <div class="chat-messages" id="chat_messages">
+            <div class="message bot-message">
+                Hi, I'm FeelFree. I'm here to support your personal wellbeing.
+                You can say things like "I'm feeling sad" or "I'm stressed".
+                Type 'bye', 'thank you', or 'ok' to exit.
+            </div>
+        </div>
+        <div class="disclaimer">
+            Note: This is not a substitute for professional help. If you're in crisis, please contact a mental health
+            professional.
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user_input" placeholder="How are you feeling today?" autocomplete="off">
+            <button id="send_button">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chat_messages');
+        const userInput = document.getElementById('user_input');
+        const sendButton = document.getElementById('send_button');
+
+        function addMessage(text, isUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            messageDiv.textContent = text;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === '') return;
+
+            addMessage(message, true);
+            userInput.value = '';
+
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `user_input=${encodeURIComponent(message)}`
+            })
+                .then(response => response.json())
+                .then(data => {
+                    addMessage(data.response, false);
+                    if (data.should_exit) {
+                        userInput.disabled = true;
+                        sendButton.disabled = true;
+                    }
+                });
+        }
+
+        sendButton.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+
+</html>

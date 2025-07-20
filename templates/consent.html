@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms and Conditions</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #fff;
+        background-color: #121212;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .container {
+        background-color: #1e1e1e;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 600px;
+        padding: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      h1 {
+        color: #ff4d6d;
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+
+      .terms-box {
+        height: 250px;
+        overflow-y: auto;
+        border: 1px solid #333;
+        padding: 20px;
+        margin-bottom: 20px;
+        background-color: #252525;
+        border-radius: 4px;
+      }
+
+      .terms-box::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .terms-box::-webkit-scrollbar-track {
+        background: #333;
+        border-radius: 4px;
+      }
+
+      .terms-box::-webkit-scrollbar-thumb {
+        background: #555;
+        border-radius: 4px;
+      }
+
+      .radio-group {
+        margin: 20px 0;
+      }
+
+      .radio-option {
+        background-color: #2a2a2a;
+        padding: 12px 15px;
+        margin: 10px 0;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .radio-option:hover {
+        background-color: #333;
+      }
+
+      input[type="radio"] {
+        margin-right: 10px;
+        accent-color: #ff4d6d;
+        cursor: pointer;
+      }
+
+      label {
+        font-weight: 400;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      .submit-btn {
+        background: linear-gradient(to right, #ff4d6d, #ff9e5e);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+        transition: opacity 0.3s;
+        margin-top: 20px;
+      }
+
+      .submit-btn:hover {
+        opacity: 0.9;
+      }
+
+      .submit-btn:disabled {
+        background: #555;
+        cursor: not-allowed;
+      }
+
+      p {
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Terms and Conditions</h1>
+
+      <div class="terms-box">
+        <p>
+          By using this website, you agree to share your own and your close
+          contacts' phone numbers for emergency purposes. You confirm that you
+          have obtained their consent to share this information. These contacts
+          may be notified if our system detects potential mental health risks.
+        </p>
+
+        <p>
+          All data will be securely stored and used only for your safety. We do
+          not share information with third parties.
+        </p>
+
+        <p>
+          This platform is not a substitute for professional help. Misuse or
+          false information may result in termination of access.
+        </p>
+
+        <p>By proceeding, you accept these terms and our privacy practices.</p>
+      </div>
+
+      <form id="terms-form" action="{{ url_for('consent') }}" method="POST">
+        <div class="radio-group">
+          <p>Do you accept these terms and conditions?</p>
+
+          <div class="radio-option">
+            <input type="radio" id="accept" name="consent" value="yes" />
+            <label for="accept">Yes, I accept the terms and conditions</label>
+          </div>
+
+          <div class="radio-option">
+            <input type="radio" id="decline" name="consent" value="no" />
+            <label for="decline"
+              >No, I do not accept the terms and conditions</label
+            >
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">Next</button>
+      </form>
+    </div>
+  </body>
+</html>

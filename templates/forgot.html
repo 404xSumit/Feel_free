@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FeelFree - Email Verification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        body {
+            background-image: url("{{ url_for('static', filename='back.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            color: var(--text-color);
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 26, 26, 0.7);
+            z-index: -1;
+        }
+
+
+
+
+
+
+
+
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+        .container {
+            width: 100%;
+            max-width: 450px;
+            padding: 2.5rem 2rem;
+            margin: 1rem;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 1rem;
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .header p {
+            color: rgb(233, 213, 255);
+            font-size: 1rem;
+        }
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: rgb(233, 213, 255);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            border-radius: 0.375rem;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(233, 213, 255, 0.5);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: rgb(45, 212, 191);
+            box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.3);
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: white;
+            background: linear-gradient(to right, rgb(147, 51, 234), rgb(45, 212, 191));
+            border: none;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(to right, rgb(126, 34, 206), rgb(20, 184, 166));
+            box-shadow: 0 10px 15px -3px rgba(147, 51, 234, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.875rem;
+            color: rgba(233, 213, 255, 0.7);
+        }
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+        .logo{
+            width: 16rem;
+            height: 8rem;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="header">
+            <h1><img src="static/final_logo.png" alt="" class="logo"></h1>
+            <p>Enter your email to receive a verification code</p>
+        </div>
+
+        <form class="form"  action="{{ url_for('forgot') }}" method="POST">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                    name="email" 
+                    type="email" 
+                    id="email" 
+                    placeholder="Enter your email" 
+                    required
+                >
+            </div>
+
+            <button type="submit" class="submit-btn">Send OTP</button>
+        </form>
+    </div>
+</body>
+</html>
