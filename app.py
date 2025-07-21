@@ -25,13 +25,13 @@ db = SQLAlchemy(app)
 load_dotenv()   
 
 
-# Twilio credentials from .env
-TWILIO_SID = os.getenv("TWILIO_SID")
-TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
-TWILIO_PHONE = os.getenv("TWILIO_PHONE")
+# # Twilio credentials from .env
+# TWILIO_SID = os.getenv("TWILIO_SID")
+# TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
+# TWILIO_PHONE = os.getenv("TWILIO_PHONE")
 
-ADMIN_PHONE = os.getenv("ADMIN_PHONE") 
-client = Client(TWILIO_SID, TWILIO_AUTH_TOKEN)
+# ADMIN_PHONE = os.getenv("ADMIN_PHONE") 
+# client = Client(TWILIO_SID, TWILIO_AUTH_TOKEN)
 #sms ka code yaha tak tha
 #yaha se om ka code start
 from my_api import API_KEY, genai
