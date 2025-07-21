@@ -9,12 +9,21 @@ import string
 from flask_mail import Mail, Message
 from flask import jsonify
 # import for sms
-from twilio.rest import Client
+# from twilio.rest import Client
 import os
 from dotenv import load_dotenv
 
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config.from_pyfile('config.py')
+
+db = SQLAlchemy(app)
+
 #load .env variables
 load_dotenv()   
+
 
 # Twilio credentials from .env
 TWILIO_SID = os.getenv("TWILIO_SID")
